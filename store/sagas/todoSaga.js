@@ -6,9 +6,6 @@ import {
 import { FETCH } from '../actions/actionTypes';
 
 function* fetchTodoList(action) {
-  // console.log('limit = ',  action);
-  console.log('action = ', action);
-
   try {
     const response = yield call(axios, {
       method: 'GET',
