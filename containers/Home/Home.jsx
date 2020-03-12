@@ -1,21 +1,18 @@
 import React, {useEffect} from 'react';
 // import './styles.js';
 import {useDispatch, useSelector} from 'react-redux';
-import { fetchTodoListStart } from '../../store/actions/todoActions';
+import {fetchCreateTodoStart, fetchTodoListStart} from '../../store/actions/todoActions';
 import {
   View,
   ActivityIndicator,
-  StyleSheet,
+  StyleSheet, Text, ScrollView,
 } from 'react-native';
 import TodoList from '../../components/TodoList';
 
 const styles = StyleSheet.create({
   homePage: {
-    width: '100%',
-    justifyContent: 'center',
-    maxWidth: '700px',
-    marginLeft: 'auto',
-    marginRight: 'auto',
+    flex: 1,
+    // maxWidth: '700px',
   },
   todoList: {
     marginTop: 50,
@@ -29,11 +26,17 @@ const Home = (props) => {
   },  []);
   const { todoResults, loading } = useSelector(state => state.todoReducer);
   const todoList = todoResults.data;
+  // const todoList = [
+  //   {id: 1, title: 'Todo1', completed: true},
+  //   {id: 2, title: 'Todo2', completed: false},
+  //   {id: 3, title: 'Todo3', completed: true},
+  // ];
 
   return (
-    <View style={styles.homePage}>
+    <ScrollView style={styles.homePage}>
+      <Text>qwe1111111111111111111111111111111111111111122</Text>
       {
-        !loading && todoList && todoList.length
+        !loading && (todoList && todoList.length)
           ?  <TodoList
             todoList={todoList}
           />
@@ -42,7 +45,7 @@ const Home = (props) => {
             color="#ff9900"
           />
       }
-    </View>
+    </ScrollView>
   );
 };
 

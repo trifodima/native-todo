@@ -1,9 +1,16 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   Text, View,
   StyleSheet,
-  CheckBox
+  CheckBox,
+  Switch
 } from 'react-native';
+import { Icon } from 'react-native-elements';
+import {useDispatch} from 'react-redux';
+import {
+  fetchEditTodoStart,
+  fetchRemoveTodoStart
+} from '../store/actions/todoActions';
 
 const styles = StyleSheet.create({
   item: {
@@ -11,39 +18,56 @@ const styles = StyleSheet.create({
     paddingVertical: 30,
     paddingHorizontal: 15,
     marginTop: 30,
-  },
-  itemCheckBox: {
-    marginRight: 30
-  },
-  itemTodo: {
-
-  },
-  itemRemove: {
-    width: '100%',
+    borderRadius: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
     flex: 1,
   },
+  itemTodo: {
+    flex: 1,
+  },
+  itemRemove: {
+  },
+  checkBox: {
+    marginRight: 30
+  },
   title: {
+    flex: 1,
     fontSize: 32,
-  }
+  },
 });
 
 const TodoItem = (props) => {
-  const {title, completed} = props;
+  const {id, title, completed} = props.todo;
+  const dispatch = useDispatch();
+  const [todo, setTodo] = useState(props.todo);
+
+  const changeCompletedTodoHandler = (id, title, completed) => {
+    console.log('completed =', completed);
+    dispatch(fetchEditTodoStart(id, title, completed !== 'on'));
+    return !completed;
+  };
 
   return (
     <View style={styles.item}>
       <View style={styles.itemTodo}>
-        <CheckBox
-          style={styles.itemCheckBox}
+        <Switch
+          style={styles.checkBox}
           type="checkbox"
           value={completed}
-          // onChange={() => !completed}
+          onValueChange={(event) => changeCompletedTodoHandler(id, title, event.target.value)}
         />
-        <Text>{title}</Text>
+        <Text style={styles.title}>{title}</Text>
       </View>
 
       <View style={styles.itemRemove}>
-        <Text>Remove</Text>
+        <Icon
+          name='window-close-o'
+          type='font-awesome'
+          color='#f02849'
+          size={35}
+          onPress={() => dispatch(fetchRemoveTodoStart(id))}
+        />
       </View>
     </View>
   );
