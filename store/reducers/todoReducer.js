@@ -29,9 +29,7 @@ export default function todoReducer(state = initialState, action) {
         // loading: true
       };
     case FETCH.CREATE_TODO.SUCCESS:
-      const todoListWithNewTodo = [...state.todoResults.data];
-
-      todoListWithNewTodo.push(action.todo);
+      const todoListWithNewTodo = [...state.todoResults.data, action.todo];
 
       return {
         ...state,
@@ -53,16 +51,8 @@ export default function todoReducer(state = initialState, action) {
         // loading: true
       };
     case FETCH.EDIT_TODO.SUCCESS:
-      const updatedTodoList = [...state.todoResults.data];
-
-      updatedTodoList.map(todo => {
-        if (todo.id === action.todo.id)  {
-
-          todo.title = action.title;
-          todo.completed = action.completed;
-        }
-        return todo;
-      });
+      const updatedTodoList = [...state.todoResults.data].map(todo =>
+        todo.id === action.todo.id ? action.todo : todo);
 
       return {
         ...state,

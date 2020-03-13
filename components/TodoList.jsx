@@ -1,12 +1,13 @@
 import React, {useState} from 'react';
 import {
-  Button,
-  FlatList, SafeAreaView, StyleSheet,
-  TextInput, View,
+  Alert,
+  FlatList, SafeAreaView, StyleSheet, Text,
+  TextInput, TouchableOpacity, View,
 } from 'react-native';
 import TodoItem from './TodoItem';
-import {useDispatch} from 'react-redux';
-import {fetchCreateTodoStart} from '../store/actions/todoActions';
+import { useDispatch } from 'react-redux';
+import { fetchCreateTodoStart } from '../store/actions/todoActions';
+import AddTodo from './AddTodo';
 
 const styles = StyleSheet.create({
   todoList: {
@@ -15,52 +16,40 @@ const styles = StyleSheet.create({
   },
   createInput: {
     flex: 1,
-    paddingVertical: 15,
+    height: 60,
     paddingHorizontal: 10,
-    fontSize: 18,
+    fontSize: 20,
     borderColor: 'gray',
     borderWidth: 1,
-    borderRadius: 10,
-  },
-  createButton: {
-    paddingVertical: 30,
-    paddingHorizontal: 10,
-    fontSize: 18,
-    borderColor: 'gray',
-    borderWidth: 1,
-    borderRadius: 10,
+    borderTopLeftRadius: 10,
+    borderBottomLeftRadius: 10,
   },
   createForm: {
-    flex: 1
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  createButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#651365',
+    paddingHorizontal: 30,
+    height: 60,
+    borderTopRightRadius: 10,
+    borderBottomRightRadius: 10,
+
+  },
+  buttonText: {
+    alignItems: 'center',
+    color: '#ffffff',
+    fontSize: 25,
   },
 });
 
 const TodoList = ({todoList}) => {
-  const [title, setTitle] = useState('');
-  const dispatch = useDispatch();
-
-  const createTodoHandler = () => {
-    dispatch(fetchCreateTodoStart(title));
-    setTitle('');
-  };
-
   return (
     <View style={styles.todoList}>
-      <View style={styles.createForm}>
-        <TextInput
-          style={styles.createInput}
-          placeholder={'Write new todo...'}
-          value={title}
-          onChange={(event) => setTitle(event.target.value)}
-        />
-        <Button
-          style={styles.createButton}
-          onPress={createTodoHandler}
-          title="Add"
-          color="#841584"
-        />
-      </View>
-
+      <AddTodo />
       <SafeAreaView>
         <FlatList
           data={todoList}

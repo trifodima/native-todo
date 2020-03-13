@@ -45,17 +45,6 @@ function* fetchCreateTodo(action) {
     yield put(fetchCreateTodoFailure(error));
   }
 }
-function* fetchRemoveTodo({id}) {
-  try {
-    const response = yield call(axios, {
-      method: 'DELETE',
-      url: `/todo/${id}`,
-    });
-    yield put(fetchRemoveTodoSuccess(id));
-  } catch (error) {
-    yield put(fetchRemoveTodoFailure(error));
-  }
-}
 function* fetchEditTodo({id, title, completed}) {
   console.log('completed = ', completed);
 
@@ -80,6 +69,18 @@ function* fetchEditTodo({id, title, completed}) {
     yield put(fetchEditTodoFailure(error));
   }
 }
+function* fetchRemoveTodo({id}) {
+  try {
+    const response = yield call(axios, {
+      method: 'DELETE',
+      url: `/todo/${id}`,
+    });
+    yield put(fetchRemoveTodoSuccess(id));
+  } catch (error) {
+    yield put(fetchRemoveTodoFailure(error));
+  }
+}
+
 export default function* () {
   yield takeLatest(FETCH.TODOLIST.START, fetchTodoList);
   yield takeLatest(FETCH.CREATE_TODO.START, fetchCreateTodo);
