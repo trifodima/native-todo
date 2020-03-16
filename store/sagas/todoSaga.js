@@ -12,6 +12,8 @@ import {
 } from '../actions/todoActions';
 import { FETCH } from '../actions/actionTypes';
 
+
+
 function* fetchTodoList(action) {
   try {
     const response = yield call(axios, {
@@ -46,8 +48,6 @@ function* fetchCreateTodo(action) {
   }
 }
 function* fetchEditTodo({id, title, completed}) {
-  console.log('completed = ', completed);
-
   try {
     const response = yield call(axios, {
       method: 'PATCH',

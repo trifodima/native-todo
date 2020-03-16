@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Alert, StyleSheet, Switch, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {useDispatch} from 'react-redux';
-import {fetchCreateTodoStart} from '../store/actions/todoActions';
+import {fetchCreateTodoStart, fetchTodoListStart} from '../store/actions/todoActions';
+
 const styles = StyleSheet.create({
   createInput: {
     flex: 1,
@@ -34,10 +35,10 @@ const styles = StyleSheet.create({
     fontSize: 25,
   },
 });
+
 const AddTodo = () => {
   const [title, setTitle] = useState('');
   const dispatch = useDispatch();
-
   const createTodoHandler = () => {
     dispatch(fetchCreateTodoStart(title));
     setTitle('');
@@ -55,12 +56,6 @@ const AddTodo = () => {
         onPress={createTodoHandler}
       >
         <Text style={styles.buttonText}>Add</Text>
-        {/*<Button*/}
-        {/*  style={styles.createButton}*/}
-        {/*  onPress={createTodoHandler}*/}
-        {/*  title="Add"*/}
-        {/*  color="#841584"*/}
-        {/*/>*/}
       </TouchableOpacity>
     </View>
   );

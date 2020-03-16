@@ -5,9 +5,12 @@ import {fetchCreateTodoStart, fetchTodoListStart} from '../../store/actions/todo
 import {
   View,
   ActivityIndicator,
-  StyleSheet, Text, ScrollView,
+  StyleSheet,
+  Text,
+  ScrollView,
 } from 'react-native';
 import TodoList from '../../components/TodoList';
+
 
 const styles = StyleSheet.create({
   homePage: {
@@ -20,6 +23,8 @@ const styles = StyleSheet.create({
 });
 
 const Home = (props) => {
+  console.log('props = ', props);
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchTodoListStart(1));
@@ -33,19 +38,20 @@ const Home = (props) => {
   // ];
 
   return (
-    <ScrollView style={styles.homePage}>
-      <Text>qwe1111111111111111111111111111111111111111122</Text>
-      {
-        !loading && (todoList && todoList.length)
-          ?  <TodoList
-            todoList={todoList}
-          />
-          : <ActivityIndicator
-            size="large"
-            color="#ff9900"
-          />
-      }
-    </ScrollView>
+      <ScrollView style={styles.homePage}>
+        <Text style={{fontSize: 35}} onPress={() => props.navigation.goBack()}>TodoList</Text>
+        {
+          !loading && (todoList && todoList.length)
+            ?  <TodoList
+              todoList={todoList}
+            />
+            : <ActivityIndicator
+              size="large"
+              color="#ff9900"
+            />
+        }
+
+      </ScrollView>
   );
 };
 
