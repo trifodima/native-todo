@@ -3,13 +3,16 @@ import { FETCH } from '../actions/actionTypes';
 const initialState = {
   todoResults: {},
   loading: false,
+  currentFilter: 'all',
 };
 
 export default function todoReducer(state = initialState, action) {
+  console.log('action = ', action);
+
   switch (action.type) {
     case FETCH.TODOLIST.START:
       return {
-        ...state, loading: true
+        ...state, loading: true,
       };
     case FETCH.TODOLIST.SUCCESS:
       return {
@@ -88,6 +91,25 @@ export default function todoReducer(state = initialState, action) {
       return {
         ...state,
         // loading: false,
+        error: action.error
+      };
+    case FETCH.FILTERED_TODOLIST.START:
+      return {
+        ...state,
+        loading: true,
+        currentFilter: action.filter,
+      };
+    case FETCH.FILTERED_TODOLIST.SUCCESS:
+      return {
+        ...state,
+        todoResults: action.todoResults,
+
+        loading: false,
+      };
+    case FETCH.FILTERED_TODOLIST.ERROR:
+      return {
+        ...state,
+        loading: false,
         error: action.error
       };
     default:

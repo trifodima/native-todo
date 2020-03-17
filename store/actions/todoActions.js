@@ -78,3 +78,24 @@ export function fetchRemoveTodoFailure(error) {
     error,
   }
 }
+// ChangeFilter
+
+export function fetchFilteredTodoListStart(page, filter) {
+  return {
+    type: FETCH.FILTERED_TODOLIST.START,
+    page,
+    filter,
+  }
+}
+export function fetchFilteredTodoListSuccess(todoResults) {
+  return {
+    type: FETCH.FILTERED_TODOLIST.SUCCESS,
+    todoResults,
+  }
+}
+export function fetchFilteredTodoListFailure(error) {
+  return {
+    type: FETCH.FILTERED_TODOLIST.FAILURE,
+    error,
+  }
+}

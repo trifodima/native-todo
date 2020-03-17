@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Alert, StyleSheet, Switch, Text, TextInput, TouchableOpacity, View} from 'react-native';
+import {Alert, SafeAreaView, StyleSheet, Switch, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {useDispatch} from 'react-redux';
 import {fetchCreateTodoStart, fetchTodoListStart} from '../store/actions/todoActions';
 
@@ -57,6 +57,7 @@ const AddTodo = () => {
       >
         <Text style={styles.buttonText}>Add</Text>
       </TouchableOpacity>
+
     </View>
   );
 };

@@ -30,6 +30,25 @@ function* fetchTodoList(action) {
     yield put(fetchTodoListFailure(error));
   }
 }
+function* fetchFilteredTodoList(action) {
+  console.log('1.action.page = ', action.page);
+
+  try {
+    const response = yield call(axios, {
+      method: 'GET',
+      url: `/filtered-todos`,
+      params: {
+        page: action.page,
+        filter: action.filter
+      }
+    });
+    const todoResults = response.data.results;
+    console.log('2.action.page = ', todoResults);
+    yield put(fetchTodoListSuccess(todoResults));
+  } catch (error) {
+    yield put(fetchTodoListFailure(error));
+  }
+}
 function* fetchCreateTodo(action) {
   try {
     const response = yield call(axios, {
@@ -40,7 +59,6 @@ function* fetchCreateTodo(action) {
       }
     });
     const newTodo = response.data.results;
-    console.log('newTodo = ', newTodo);
 
     yield put(fetchCreateTodoSuccess(newTodo));
   } catch (error) {
@@ -62,7 +80,6 @@ function* fetchEditTodo({id, title, completed}) {
       },
     });
     const updatedTodo = response.data.results;
-    console.log('updatedTodo = ', updatedTodo);
 
     yield put(fetchEditTodoSuccess(updatedTodo));
   } catch (error) {
@@ -86,4 +103,5 @@ export default function* () {
   yield takeLatest(FETCH.CREATE_TODO.START, fetchCreateTodo);
   yield takeLatest(FETCH.EDIT_TODO.START, fetchEditTodo);
   yield takeLatest(FETCH.REMOVE_TODO.START, fetchRemoveTodo);
+  yield takeLatest(FETCH.FILTERED_TODOLIST.START, fetchFilteredTodoList);
 }

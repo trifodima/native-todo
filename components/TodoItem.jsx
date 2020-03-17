@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {createRef, useState} from 'react';
 import {
   Text, View,
   StyleSheet,
@@ -14,7 +14,6 @@ import {
 const styles = StyleSheet.create({
   item: {
     backgroundColor: 'rgba(219,174,255,0.36)',
-
     paddingHorizontal: 15,
     marginTop: 30,
     borderRadius: 10,
@@ -36,7 +35,7 @@ const styles = StyleSheet.create({
   titleBlock: {
     flex: 1,
     flexDirection: 'row',
-    paddingVertical: 20,
+    paddingVertical: 10,
   },
   title: {
     flex: 1,
@@ -59,7 +58,7 @@ const styles = StyleSheet.create({
 const TodoItem = (props) => {
   const {id, title, completed} = props.todo;
   const dispatch = useDispatch();
-  const editInputRef = useRef();
+  const editInputRef = createRef();
   const [isEdit, setIsEdit] = useState(false);
 
   const changeCompletedTodoHandler = (completed) => {
@@ -68,15 +67,14 @@ const TodoItem = (props) => {
   const changeTitle = (title) => {
     dispatch(fetchEditTodoStart(id, title, completed));
   };
-  const beginEdit = (event) => {
-    console.log('EVENT = ', event.target.value);
-    console.log('editInputRef = ', editInputRef.current);
+  const beginEdit = () => {
     editInputRef.current.focus();
     setIsEdit(!isEdit);
   };
-  const doneEdit = (event) => {
+  const doneEdit = () => {
     setIsEdit(!isEdit);
   };
+
   return (
     <View style={styles.item}>
       <View style={styles.itemTodo}>

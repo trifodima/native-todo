@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 // import './styles.js';
 import {useDispatch, useSelector} from 'react-redux';
 import {fetchCreateTodoStart, fetchTodoListStart} from '../../store/actions/todoActions';
@@ -19,12 +19,19 @@ const styles = StyleSheet.create({
   },
   todoList: {
     marginTop: 50,
-  }
+  },
+  button: {
+    backgroundColor: 'lightblue',
+    padding: 12,
+    margin: 16,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 4,
+    borderColor: 'rgba(0, 0, 0, 0.1)',
+  },
 });
 
 const Home = (props) => {
-  console.log('props = ', props);
-
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchTodoListStart(1));
@@ -38,11 +45,13 @@ const Home = (props) => {
   // ];
 
   return (
+    <View>
       <ScrollView style={styles.homePage}>
+
         <Text style={{fontSize: 35}} onPress={() => props.navigation.goBack()}>TodoList</Text>
         {
           !loading && (todoList && todoList.length)
-            ?  <TodoList
+            ? <TodoList
               todoList={todoList}
             />
             : <ActivityIndicator
@@ -50,8 +59,9 @@ const Home = (props) => {
               color="#ff9900"
             />
         }
-
       </ScrollView>
+    </View>
+
   );
 };
 

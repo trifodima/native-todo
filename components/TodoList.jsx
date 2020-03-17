@@ -1,13 +1,13 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {
-  Alert,
-  FlatList, SafeAreaView, StyleSheet, Text,
-  TextInput, TouchableOpacity, View,
+  FlatList,
+  SafeAreaView,
+  StyleSheet,
+  View,
 } from 'react-native';
 import TodoItem from './TodoItem';
-import { useDispatch } from 'react-redux';
-import { fetchCreateTodoStart } from '../store/actions/todoActions';
 import AddTodo from './AddTodo';
+import TodoFilters from './TodoFilters';
 
 const styles = StyleSheet.create({
   todoList: {
@@ -61,6 +61,7 @@ const TodoList = ({todoList}) => {
           keyExtractor={todo => todo.id.toString()}
         />
       </SafeAreaView>
+      <TodoFilters />
     </View>
   );
 };
