@@ -3,11 +3,13 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import TabBarIcon from '../components/TabBarIcon';
 import Home from '../screens/Home/Home';
 import AboutScreen from '../screens/AboutScreen';
+import Custom from '../screens/Custom/Custom';
 
 const BottomTab = createBottomTabNavigator();
 const INITIAL_ROUTE_NAME = 'Home';
 
 export default function BottomTabNavigator({ navigation, route }) {
+  console.log('navigator, route = ', navigator, route);
 
   // Set the header title on the parent stack navigator depending on the
   // currently active tab. Learn more in the documentation:
@@ -32,6 +34,15 @@ export default function BottomTabNavigator({ navigation, route }) {
           tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-book" />,
         }}
       />
+      <BottomTab.Screen
+        name="Custom"
+        component={Custom}
+        options={{
+          title: 'Custom',
+          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} name="md-list-box" />,
+        }}
+      >
+      </BottomTab.Screen>
     </BottomTab.Navigator>
   );
 }
@@ -44,5 +55,7 @@ function getHeaderTitle(route) {
       return 'Todo List';
     case 'About':
       return 'About';
+    case 'Custom':
+      return 'Custom';
   }
 }

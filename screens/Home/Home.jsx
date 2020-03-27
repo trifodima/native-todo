@@ -1,7 +1,6 @@
-import React, {useEffect, useState} from 'react';
-// import './styles.js';
+import React, { useEffect } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {fetchCreateTodoStart, fetchTodoListStart} from '../../store/actions/todoActions';
+import { fetchTodoListStart } from '../../store/actions/todoActions';
 import {
   View,
   ActivityIndicator,

@@ -7,8 +7,6 @@ const initialState = {
 };
 
 export default function todoReducer(state = initialState, action) {
-  console.log('action = ', action);
-
   switch (action.type) {
     case FETCH.TODOLIST.START:
       return {
